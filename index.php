@@ -1,4 +1,6 @@
 <?php include("component/header.php"); ?>
+<script src="public/js/scroll.js" defer></script>
+
 
 <section class="hero">
     <p class="ps">Selamat Datang di</p>

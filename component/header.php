@@ -13,6 +13,9 @@
         <div class="logo">
             <img src="public/img/logo.svg" alt="Logo Posyandu";>
         </div>
+        <div>
+        <p class="nav-logo">EPosyandu</p>
+        </div>
         <nav>
             <ul class="nav-list">
                 <li><a href="#">Home</a></li>
