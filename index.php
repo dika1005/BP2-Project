@@ -27,7 +27,7 @@
         <div class="card">
           <img src="dist/img/blog/dandadan.jpg" alt="DanDaDan" />
           <div class="card-content">
-            <h3><a href="#">DanDaDan</a></h3>
+            <h3><a href="#">AMAGAMI</a></h3>
             <p>
               Anime Dandadan bercerita tentang Momo Ayase dan Ken Takakura, dua siswa SMA yang memiliki perbedaan keyakinan. 
               Momo percaya pada hantu, sedangkan Okarun percaya pada alien. Perbedaan keyakinan ini membuat keduanya saling menantang untuk membuktikan kebenaran masing-masing.
