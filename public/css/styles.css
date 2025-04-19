@@ -142,7 +142,7 @@ body.scrolled header {
 .hidden {
   opacity: 0;
   transform: translateY(50px);
-  transition: all 0.6s ease-out;
+  transition: all 0.9s ease-out;
 }
 
 .show {

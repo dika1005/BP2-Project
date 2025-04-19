@@ -4,7 +4,7 @@
 
 
 
-<section class="hero">
+<section id="hero" class="hero">
   <p class="ps">Selamat Datang di</p>
   <h1>POSYANDU MAWAR MANIS</h1>
   <p>Digitalisasi pelayanan Posyandu secara Paperless,
@@ -13,7 +13,7 @@
   <img src="public/img/hero2.png" alt="hero">
 </section>
 
-<section class="about">
+<section id="about" class="about">
   <div class="about-content">
     <div class="about-text hidden">
       <p class="head">Tentang <span class="psn">Posyandu</span></p>

@@ -18,8 +18,8 @@
         </div>
         <nav>
             <ul class="nav-list">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
                 <li><a href="#">Artikel</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">Login</a></li>
