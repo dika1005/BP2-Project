@@ -2,65 +2,59 @@
 /**
  * Class UserModel
  * 
- * Kelas ini menyediakan lapisan abstraksi untuk berinteraksi dengan tabel "user" di database.
- * Kelas ini menggunakan CrudRepo untuk melakukan operasi CRUD dan mengelola koneksi database.
+ * Abstraksi untuk interaksi dengan tabel "user".
  */
 class UserModel
 {
     /**
-     * @var CrudRepo $repo
-     * Sebuah instance CrudRepo untuk menangani operasi database pada tabel "user".
-     */
-
-    /**
      * Konstruktor
      * 
-     * Menginisialisasi instance CrudRepo untuk tabel "user".
+     * Inisialisasi CrudRepo untuk tabel "user".
      */
     public function __construct() {}
 
     /**
-     * Mendapatkan semua pengguna dari tabel "user".
+     * Ambil semua data pengguna.
      * 
-     * @return array Sebuah array yang berisi semua data pengguna.
+     * @return array
      */
     public function getAllUsers() {}
 
     /**
-     * Mendapatkan data pengguna tertentu berdasarkan NIK (identitas unik).
+     * Ambil data pengguna berdasarkan NIK.
      * 
-     * @param string $nik NIK dari pengguna yang ingin diambil.
-     * @return array|null Data pengguna jika ditemukan, atau null jika tidak ditemukan.
+     * @param string $nik
+     * @return array|null
      */
     public function getUserByNIK($nik) {}
 
     /**
-     * Menambahkan pengguna baru ke tabel "user".
+     * Tambah pengguna baru.
      * 
-     * @param string $nik NIK dari pengguna baru.
-     * @param string $nama Nama dari pengguna baru.
-     * @param string $alamat Alamat dari pengguna baru.
-     * @param float $umur Umur dari pengguna baru.
-     * @return bool True jika operasi berhasil, false jika gagal.
+     * @param string $nik
+     * @param string $nama
+     * @param string $alamat
+     * @param float $umur
+     * @return bool
      */
     public function addUser($nik, $nama, $alamat, $umur) {}
 
     /**
-     * Memperbarui informasi pengguna yang sudah ada di tabel "user".
+     * Update data pengguna.
      * 
-     * @param string $nik NIK dari pengguna yang ingin diperbarui.
-     * @param string $nama Nama baru dari pengguna.
-     * @param string $alamat Alamat baru dari pengguna.
-     * @param float $umur Umur baru dari pengguna.
-     * @return bool True jika operasi berhasil, false jika gagal.
+     * @param string $nik
+     * @param string $nama
+     * @param string $alamat
+     * @param float $umur
+     * @return bool
      */
     public function updateUser($nik, $nama, $alamat, $umur) {}
 
     /**
-     * Menghapus pengguna dari tabel "user" berdasarkan NIK.
+     * Hapus pengguna berdasarkan NIK.
      * 
-     * @param string $nik NIK dari pengguna yang ingin dihapus.
-     * @return bool True jika operasi berhasil, false jika gagal.
+     * @param string $nik
+     * @return bool
      */
     public function deleteUser($nik) {}
 }
