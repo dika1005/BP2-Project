@@ -19,12 +19,14 @@ class CrudRepo
         $this->table = $table;
     }
 
+    // Fungsi untuk mengambil semua data dari tabel
     public function getAll()
     {
         $result = $this->conn->query("SELECT * FROM {$this->table}");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    // Fungsi untuk mengambil data berdasarkan NIK
     public function getByNik($nik)
     {
         $stmt = $this->conn->prepare("SELECT * FROM {$this->table} WHERE NIK = ?");
@@ -33,6 +35,7 @@ class CrudRepo
         return $stmt->get_result()->fetch_assoc();
     }
 
+    // Fungsi untuk menambahkan data baru ke tabel
     public function create($data)
     {
         $columns = implode(", ", array_keys($data));
@@ -45,6 +48,7 @@ class CrudRepo
         return $stmt->execute();
     }
 
+    // Fungsi untuk memperbarui data berdasarkan NIK
     public function update($nik, $data)
     {
         $fields = implode(" = ?, ", array_keys($data)) . " = ?";
@@ -57,6 +61,7 @@ class CrudRepo
         return $stmt->execute();
     }
 
+    // Fungsi untuk menghapus data berdasarkan NIK
     public function delete($nik)
     {
         $stmt = $this->conn->prepare("DELETE FROM {$this->table} WHERE NIK = ?");
