@@ -4,6 +4,12 @@ require_once 'Koneksi.php';
 class CrudRepo
 {
     private $conn;
+
+    public function getConnection()
+    {
+        return $this->conn;
+    }
+
     private $table;
 
     public function __construct($table)
@@ -19,10 +25,10 @@ class CrudRepo
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getById($id)
+    public function getByNik($nik)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM {$this->table} WHERE id = ?");
-        $stmt->bind_param("i", $id);
+        $stmt = $this->conn->prepare("SELECT * FROM {$this->table} WHERE NIK = ?");
+        $stmt->bind_param("s", $nik);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
@@ -39,22 +45,22 @@ class CrudRepo
         return $stmt->execute();
     }
 
-    public function update($id, $data)
+    public function update($nik, $data)
     {
         $fields = implode(" = ?, ", array_keys($data)) . " = ?";
-        $types = str_repeat("s", count($data)) . "i";
+        $types = str_repeat("s", count($data)) . "s";
         $values = array_values($data);
-        $values[] = $id;
+        $values[] = $nik;
 
-        $stmt = $this->conn->prepare("UPDATE {$this->table} SET $fields WHERE id = ?");
+        $stmt = $this->conn->prepare("UPDATE {$this->table} SET $fields WHERE NIK = ?");
         $stmt->bind_param($types, ...$values);
         return $stmt->execute();
     }
 
-    public function delete($id)
+    public function delete($nik)
     {
-        $stmt = $this->conn->prepare("DELETE FROM {$this->table} WHERE id = ?");
-        $stmt->bind_param("i", $id);
+        $stmt = $this->conn->prepare("DELETE FROM {$this->table} WHERE NIK = ?");
+        $stmt->bind_param("s", $nik);
         return $stmt->execute();
     }
 }
