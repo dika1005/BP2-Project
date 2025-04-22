@@ -1,34 +1,51 @@
 <?php
 session_start();
-require_once '../database.lib/Koneksi.php';
+require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../database.model/AdminModel.php';
+require_once __DIR__ . '/../../database.model/UserModel.php';  // Pastikan UserModel juga pakai mysqli
+require_once __DIR__ . '/../../database.lib/Koneksi.php'; // Pastikan Koneksi juga pakai mysqli
+require_once __DIR__ . '/../../database.lib/Session.php';
+Session::checkAdminLogin();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$conn = new Koneksi(); // Kelas dari Koneksi.php (pakai mysqli ya!)
+$db = $conn->getConnection();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $role = $_POST['role'];
 
-    // Cek user di DB
-    $query = "SELECT * FROM users WHERE username='$username' AND role='$role'";
-    $result = mysqli_query($conn, $query);
-    $user = mysqli_fetch_assoc($result);
+    if ($role === 'admin') {
+        $admin = new AdminModel($db);
+        $user = $admin->getAdminByUsername($username);
 
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['username'] = $username;
-        $_SESSION['role'] = $role;
-
-        if ($role === 'admin') {
-            header("Location: ../admin/dashboard.php");
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['Username'] = $username;
+            $_SESSION['role'] = 'admin';
+            header("Location: ../AKOW/admin/layout.php");
+            exit;
         } else {
-            header("Location: ../user/dashboard.php");
+            $_SESSION['error'] = "Username atau password salah.";
+            header("Location: ../../auth/Login.php");
+            exit;
         }
-        exit;
-    } else {
-        // Kembali ke form login dengan pesan error
-        header("Location: Login.php?error=1");
-        exit;
+    } elseif ($role === 'user') {
+        $userModel = new UserModel($db);
+        $user = $userModel->getByUsername($username);
+
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['Username'] = $username;
+            $_SESSION['role'] = 'user';
+            header("Location: ../../user/dashboard.php");
+            exit;
+        } else {
+            $_SESSION['error'] = "Username atau password salah.";
+            header("Location: ../../auth/Login.php");
+            exit;
+        }
     }
-} else {
-    // Jika akses langsung tanpa POST
-    header("Location: Login.php");
+
+    $_SESSION['error'] = "Login gagal! Role tidak dikenali.";
+    header("Location: ../../auth/Login.php");
     exit;
 }

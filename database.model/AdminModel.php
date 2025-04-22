@@ -1,65 +1,81 @@
 <?php
-/**
- * Class AdminModel
- * 
- * Abstraksi untuk interaksi dengan tabel "admin".
- */
 class AdminModel
 {
-    /**
-     * Konstruktor
-     * 
-     * Inisialisasi CrudRepo untuk tabel "admin".
-     */
-    public function __construct() {}
+    private $db;
 
-    /**
-     * Ambil semua data admin.
-     * 
-     * @return array
-     */
-    public function getAllAdmins() {}
+    public function __construct($db)
+    {
+        if (!($db instanceof mysqli)) {
+            throw new Exception("Koneksi database tidak valid");
+        }
+        $this->db = $db;
+    }
 
-    /**
-     * Ambil data admin berdasarkan username.
-     * 
-     * @param string $username
-     * @return array|null
-     */
-    public function getAdminByUsername($username) {}
+    public function getAdminByUsername($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM admin WHERE Username = ?");
+        if (!$stmt)
+            return null;
 
-    /**
-     * Tambah admin baru.
-     * 
-     * @param string $username
-     * @param string $password
-     * @return bool
-     */
-    public function addAdmin($username, $password) {}
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
 
-    /**
-     * Update data admin.
-     * 
-     * @param string $username
-     * @param string $password
-     * @return bool
-     */
-    public function updateAdmin($username, $password) {}
+        $result = $stmt->get_result();
+        return $result->fetch_assoc(); // return 1 baris data atau null
+    }
 
-    /**
-     * Hapus admin berdasarkan username.
-     * 
-     * @param string $username
-     * @return bool
-     */
-    public function deleteAdmin($username) {}
+    public function getAllAdmins()
+    {
+        $query = "SELECT * FROM admin";
+        $result = $this->db->query($query);
 
-    /**
-     * Verifikasi login admin.
-     * 
-     * @param string $username
-     * @param string $password
-     * @return bool
-     */
-    public function verifyLogin($username, $password) {}
+        if ($result) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return ['error' => $this->db->error];
+        }
+    }
+
+    public function addAdmin($username, $password)
+    {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $stmt = $this->db->prepare("INSERT INTO admin (Username, Password) VALUES (?, ?)");
+        if (!$stmt)
+            return false;
+
+        $stmt->bind_param("ss", $username, $hashedPassword);
+        return $stmt->execute();
+    }
+
+    public function updateAdmin($username, $password)
+    {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $stmt = $this->db->prepare("UPDATE admin SET password = ? WHERE username = ?");
+        if (!$stmt)
+            return false;
+
+        $stmt->bind_param("ss", $hashedPassword, $username);
+        return $stmt->execute();
+    }
+
+    public function deleteAdmin($username)
+    {
+        $stmt = $this->db->prepare("DELETE FROM admin WHERE Username = ?");
+        if (!$stmt)
+            return false;
+
+        $stmt->bind_param("s", $username);
+        return $stmt->execute();
+    }
+
+    public function verifyLogin($username, $password)
+    {
+        $admin = $this->getAdminByUsername($username);
+        if ($admin && password_verify($password, $admin['Password'])) {
+            return true;
+        }
+        return false;
+    }
 }

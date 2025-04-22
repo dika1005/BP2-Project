@@ -1,17 +1,22 @@
 <?php
-/**
- * Class UserModel
- * 
- * Abstraksi untuk interaksi dengan tabel "user".
- */
-class UserModel
-{
+class UserModel {
+    private $db;
+
+    public function __construct($db) {
+        $this->db = $db;
+    }
+
+    public function getByUsername($username) {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     /**
      * Konstruktor
      * 
      * Inisialisasi CrudRepo untuk tabel "user".
      */
-    public function __construct() {}
 
     /**
      * Ambil semua data pengguna.
