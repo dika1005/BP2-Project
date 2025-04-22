@@ -17,7 +17,7 @@
             <ul class="nav-list">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#">Artikel</a></li>
+                <li><a href="#blog">Artikel</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a target="_blank" href="/akow/auth/Login.php">Login</a></li>
             </ul>

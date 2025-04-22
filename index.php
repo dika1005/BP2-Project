@@ -40,52 +40,46 @@
       <h4 class="subtitle">Artikel</h4>
       <h2 class="title">Artikel Kesehatan</h2>
       <p class="description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque deserunt numquam
-        eaque accusamus minus sunt esse adipisci eveniet mollitia similique?
+      Temukan berbagai informasi penting seputar kesehatan untuk hidup lebih baik dan bugar setiap hari.
       </p>
     </div>
 
     <div class="card-wrapper">
       <!-- Card 1 -->
       <div class="card">
-        <img src="dist/img/blog/dandadan.jpg" alt="DanDaDan" />
+        <img src="public/img/posyanduA.jpg" alt="posyanduA" />
         <div class="card-content">
-          <h3><a href="#">AMAGAMI</a></h3>
+          <h3><a href="#">Posyandu</a></h3>
           <p>
-            Anime Dandadan bercerita tentang Momo Ayase dan Ken Takakura, dua siswa SMA yang memiliki perbedaan
-            keyakinan.
-            Momo percaya pada hantu, sedangkan Okarun percaya pada alien. Perbedaan keyakinan ini membuat keduanya
-            saling menantang untuk membuktikan kebenaran masing-masing.
+          Aku anak sehat, tubuhku kuat, berat badanku ditimbang selalu, Posyandu menunggu setiap waktu. Posyandu kini apa kabar ya?
           </p>
-          <a href="#" class="btn">Read More</a>
+          <a href="#" class="btn">Selengkapnya</a>
         </div>
       </div>
 
       <!-- Card 2 -->
       <div class="card">
-        <img src="dist/img/blog/sakamoto2.jpg" alt="Sakamoto Days" />
+        <img src="public/img/ibu_hamil.webp" alt="ibu hamil" />
         <div class="card-content">
           <h3><a href="#">Panduan Ibu Hamil</a></h3>
           <p>
-            Konon hiduplah seorang pembunuh bayaran terkuat bernama Taro Sakamoto. Dia ditakuti oleh para penjahat dan
-            dikagumi oleh para pembunuh bayaran… Namun pada suatu hari,
-            dia jatuh cinta pada seorang wanita!!! Sakamoto pun memilih untuk pensiun, menikah, dan mempunyai anak.
+          Ketika berencana untuk hamil, para wanita dianjurkan untuk lebih memperhatikan kesehatannya mulai dari sebelum hamil, selama hamil, 
+          setelah melahirkan hingga menyusui. Beberapa cara berikut perlu dilakukan untuk membantu menjaga kesehatan ibu hamil, antara lain:
           </p>
-          <a href="#" class="btn">Read More</a>
+          <a href="https://www.halodoc.com/kesehatan/kesehatan-ibu-hamil?srsltid=AfmBOoqNr4-4JMK2CQYZPhBTodCAk71dXswS9ICeO8vOm94_ymTp3U71" class="btn">Selengkapnya</a>
         </div>
       </div>
 
       <!-- Card 3 -->
       <div class="card">
-        <img src="dist/img/blog/jjk.jpg" alt="Jujutsu Kaisen" />
+        <img src="public/img/balita.jpg" alt="balita" />
         <div class="card-content">
-          <h3><a href="#">Jujutsu Kaisen</a></h3>
+          <h3><a href="#">Gizi Balita</a></h3>
           <p>
-            Jujutsu Kaisen adalah serial anie Jepang yang bercerita tentang Yuji Itadori, seorang siswa SMA yang
-            kerasukan iblis.
-            Cerita ini berlatar di dunia di mana makhluk-makhluk menyeramkan hidup dan berkeliaran.
+          Gizi memiliki peran penting dalam proses tumbuh kembang anak balita. Jika kebutuhan gizi balita tidak terpenuhi dengan baik, 
+          hal ini akan dapat membuat pertumbuhan dan perkembangannya terganggu dan dampaknya mungkin akan terlihat hingga ia dewasa. 
           </p>
-          <a href="#" class="btn">Read More</a>
+          <a href="#" class="btn">Selengkapnya</a>
         </div>
       </div>
     </div>
