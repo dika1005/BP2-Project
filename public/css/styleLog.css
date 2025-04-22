@@ -1,0 +1,94 @@
+/* Form login */
+body {
+    background: linear-gradient(135deg,rgb(170, 201, 248) 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center; /* Changed to center */
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 5%;
+  }
+  
+  .image-container {
+    margin-right: 200px; /* Space between image and form */
+  }
+  .image-container img {
+    max-width: 600px;
+    border-radius: 20px;
+  }
+  
+  .login-container {
+    background: linear-gradient(135deg, #9FB3DF ,rgb(139, 183, 255) 100%);
+    padding: 35px 45px;
+    border-radius: 20px;
+    width: 320px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+  }
+  
+  /* Rest of your existing styles remain the same */
+  .login-container:hover {
+    transform: translateY(-5px);
+  }
+  
+  .login-container h2 {
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-size: 28px;
+  }
+  
+  .login-container input,
+  .login-container select,
+  .login-container button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    font-size: 14px;
+  }
+  
+  .login-container input:focus,
+  .login-container select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
+  }
+  
+  .login-container button {
+    background: linear-gradient(45deg, #007bff, #00bfff);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .login-container button:hover {
+    background: linear-gradient(45deg, #0056b3, #0098cc);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  
+  .success {
+    color: #2ecc71;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .error {
+    color: #e74c3c;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
