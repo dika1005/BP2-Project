@@ -65,7 +65,7 @@
       <div class="card">
         <img src="dist/img/blog/sakamoto2.jpg" alt="Sakamoto Days" />
         <div class="card-content">
-          <h3><a href="#">Sakamoto Days</a></h3>
+          <h3><a href="#">Panduan Ibu Hamil</a></h3>
           <p>
             Konon hiduplah seorang pembunuh bayaran terkuat bernama Taro Sakamoto. Dia ditakuti oleh para penjahat dan
             dikagumi oleh para pembunuh bayaran… Namun pada suatu hari,
