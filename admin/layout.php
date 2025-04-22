@@ -1,12 +1,17 @@
-
+<?php
+require_once __DIR__ . '/../database.lib/Session.php';
+Session::checkAdminLogin();
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Layout</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <h1>Admin Panel</h1>
@@ -27,4 +32,5 @@
         <p>&copy; <?php echo date('Y'); ?> Admin Panel. All rights reserved.</p>
     </footer>
 </body>
-</html></footer>
+
+</html>

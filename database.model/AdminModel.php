@@ -14,14 +14,15 @@ class AdminModel
     public function getAdminByUsername($username)
     {
         $stmt = $this->db->prepare("SELECT * FROM admin WHERE Username = ?");
-        if (!$stmt)
+        if (!$stmt) {
             return null;
+        }
 
         $stmt->bind_param("s", $username);
         $stmt->execute();
-
         $result = $stmt->get_result();
-        return $result->fetch_assoc(); // return 1 baris data atau null
+
+        return $result->fetch_assoc();
     }
 
     public function getAllAdmins()
@@ -29,32 +30,42 @@ class AdminModel
         $query = "SELECT * FROM admin";
         $result = $this->db->query($query);
 
-        if ($result) {
+        if ($result && $result->num_rows > 0) {
             return $result->fetch_all(MYSQLI_ASSOC);
-        } else {
-            return ['error' => $this->db->error];
         }
+
+        return [];
     }
 
     public function addAdmin($username, $password)
     {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        if ($this->getAdminByUsername($username)) {
+            return ['error' => 'Username sudah digunakan.'];
+        }
 
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $this->db->prepare("INSERT INTO admin (Username, Password) VALUES (?, ?)");
-        if (!$stmt)
-            return false;
+
+        if (!$stmt) {
+            return ['error' => 'Gagal mempersiapkan statement.'];
+        }
 
         $stmt->bind_param("ss", $username, $hashedPassword);
-        return $stmt->execute();
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return ['error' => $stmt->error];
     }
 
     public function updateAdmin($username, $password)
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->db->prepare("UPDATE admin SET Password = ? WHERE Username = ?");
 
-        $stmt = $this->db->prepare("UPDATE admin SET password = ? WHERE username = ?");
-        if (!$stmt)
+        if (!$stmt) {
             return false;
+        }
 
         $stmt->bind_param("ss", $hashedPassword, $username);
         return $stmt->execute();
@@ -63,8 +74,9 @@ class AdminModel
     public function deleteAdmin($username)
     {
         $stmt = $this->db->prepare("DELETE FROM admin WHERE Username = ?");
-        if (!$stmt)
+        if (!$stmt) {
             return false;
+        }
 
         $stmt->bind_param("s", $username);
         return $stmt->execute();
@@ -73,9 +85,11 @@ class AdminModel
     public function verifyLogin($username, $password)
     {
         $admin = $this->getAdminByUsername($username);
+
         if ($admin && password_verify($password, $admin['Password'])) {
             return true;
         }
+
         return false;
     }
 }

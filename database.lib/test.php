@@ -1,43 +1,27 @@
 <?php
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "pweb2"; // Replace with your actual database name
+require_once 'Koneksi.php'; // Sesuaikan path ke file Koneksi.php
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+try {
+    $db = new Koneksi(); // Pastikan class Koneksi ada di file Koneksi.php
+    $connection = $db->getConnection(); // Asumsikan ada method getConnection()
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: {$conn->connect_error}");
-}
+    $query = "SELECT * FROM admin"; // Query untuk mengambil semua data dari tabel admin
+    $stmt = $connection->prepare($query);
+    $stmt->execute();
 
-// Query to check if the 'admin' table exists
-$tableName = 'admin';
-$sql = "SHOW TABLES LIKE '$tableName'";
-$result = $conn->query($sql);
+    $result = $stmt->get_result(); // Ambil hasil query sebagai objek mysqli_result
+    $results = $result->fetch_all(MYSQLI_ASSOC); // Ambil hasil sebagai array asosiatif
 
-if ($result) {
-    if ($result->num_rows > 0) {
-        echo "Table '$tableName' exists.<br>";
-
-        // Query to fetch all rows from the 'admin' table
-        $fetchSql = "SELECT * FROM $tableName";
-        $fetchResult = $conn->query($fetchSql);
-
-        if ($fetchResult && $fetchResult->num_rows > 0) {
-            echo "Contents of the '$tableName' table:<br>";
-            while ($row = $fetchResult->fetch_assoc()) {
-                echo "<pre>" . print_r($row, true) . "</pre>";
-            }
-        } else {
-            echo "The '$tableName' table is empty or the query failed.";
+    if (!empty($results)) {
+        foreach ($results as $row) {
+            echo "<pre>";
+            print_r($row); // Cetak setiap baris data
+            echo "</pre>";
         }
     } else {
-        echo "Table '$tableName' does not exist.";
+        echo "Tabel admin kosong.";
     }
-} else {
-    echo "Query failed: {$conn->error}";
+} catch (Exception $e) {
+    echo "Koneksi gagal: " . $e->getMessage();
 }
-
-$conn->close();
+?>
