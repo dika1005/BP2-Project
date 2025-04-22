@@ -6,24 +6,21 @@ class Session
     public static function checkAdminLogin()
     {
         if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-            header("Location: ../../auth/Login.php");
-            exit;
+            self::redirectToLogin();
         }
     }
 
     public static function checkUserLogin()
     {
         if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
-            header("Location: ../../auth/Login.php");
-            exit;
+            self::redirectToLogin();
         }
     }
 
     public static function checkAnyLogin()
     {
         if (!isset($_SESSION['role'])) {
-            header("Location: ../../auth/Login.php");
-            exit;
+            self::redirectToLogin();
         }
     }
 
@@ -31,6 +28,11 @@ class Session
     {
         session_unset();
         session_destroy();
+        self::redirectToLogin();
+    }
+
+    private static function redirectToLogin()
+    {
         header("Location: ../../auth/Login.php");
         exit;
     }
