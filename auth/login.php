@@ -20,7 +20,8 @@
             unset($_SESSION['error']);
             ?>
             <?= $loginMessage ?>
-            <form action="backLog/doLogin.php" method="POST">
+            <form action="../backLog/doLogin.php" method="POST">
+
                 <input type="text" name="username" placeholder="Username" autocomplete="username" required>
                 <input type="password" name="password" placeholder="Password" autocomplete="current-password" required>
 

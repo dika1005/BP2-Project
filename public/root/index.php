@@ -2,25 +2,36 @@
 // Routing manual
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+// Bikin path absolut ke folder root proyek kamu
+$basePath = __DIR__; // asumsikan index.php ada di folder AKOW
+
 switch ($uri) {
-    case '/':
-        require_once '../component/header.php';
-        require_once '../component/footer.php';
+    case '/AKOW/':
+    case '/AKOW/index.php':
+        require_once "$basePath/component/header.php";
+        require_once "$basePath/component/footer.php";
         break;
 
-    case '/login':
-        require_once '../auth/login.php';
+    case '/AKOW/login':
+    case '/AKOW/auth/Login.php':
+        require_once "$basePath/auth/Login.php";
         break;
 
-    case '/register':
-        require_once '../auth/register.php';
+    case '/AKOW/register':
+        require_once "$basePath/auth/register.php";
         break;
 
-    case '/admin':
-        require_once '../admin/index.php';
+    case '/AKOW/admin':
+        require_once "$basePath/admin/layout.php";
         break;
+
+    case '/AKOW/backLog/doLogin.php':
+        require_once realpath(__DIR__ . '/../../backLog/doLogin.php');
+        break;
+
 
     default:
-        echo "404 - Page not found";
+        http_response_code(404);
+        echo "<h1>404 - Page Not Found</h1>";
         break;
 }
