@@ -5,7 +5,7 @@ spl_autoload_register(function ($class) {
         __DIR__ . '/../controller/',
         __DIR__ . '/../database.lib/',
         __DIR__ . '/../database.model/',
-        __DIR__ . '/../admin'
+        __DIR__ . '/../database.repo/',
 
     ];
 

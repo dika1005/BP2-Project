@@ -1,65 +1,95 @@
 <?php
-class UserModel {
+class UserModel
+{
     private $db;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
+        if (!($db instanceof mysqli)) {
+            throw new Exception("Koneksi database tidak valid");
+        }
         $this->db = $db;
     }
 
-    public function getByUsername($username) {
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username");
-        $stmt->bindParam(':username', $username);
+    public function getUserByNIK($nik)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE NIK = ?");
+        if (!$stmt) {
+            return null;
+        }
+
+        $stmt->bind_param("s", $nik);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
     }
-    /**
-     * Konstruktor
-     * 
-     * Inisialisasi CrudRepo untuk tabel "user".
-     */
 
-    /**
-     * Ambil semua data pengguna.
-     * 
-     * @return array
-     */
-    public function getAllUsers() {}
+    public function getAllUsers()
+    {
+        $query = "SELECT * FROM user";
+        $result = $this->db->query($query);
 
-    /**
-     * Ambil data pengguna berdasarkan NIK.
-     * 
-     * @param string $nik
-     * @return array|null
-     */
-    public function getUserByNIK($nik) {}
+        if ($result && $result->num_rows > 0) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
 
-    /**
-     * Tambah pengguna baru.
-     * 
-     * @param string $nik
-     * @param string $nama
-     * @param string $alamat
-     * @param float $umur
-     * @return bool
-     */
-    public function addUser($nik, $nama, $alamat, $umur) {}
+        return [];
+    }
 
-    /**
-     * Update data pengguna.
-     * 
-     * @param string $nik
-     * @param string $nama
-     * @param string $alamat
-     * @param float $umur
-     * @return bool
-     */
-    public function updateUser($nik, $nama, $alamat, $umur) {}
+    public function addUser($nik, $password, $nama, $alamat, $jenisKelamin, $umur)
+    {
+        if ($this->getUserByNIK($nik)) {
+            return ['error' => 'NIK sudah terdaftar.'];
+        }
 
-    /**
-     * Hapus pengguna berdasarkan NIK.
-     * 
-     * @param string $nik
-     * @return bool
-     */
-    public function deleteUser($nik) {}
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->db->prepare("INSERT INTO user (NIK, Password, Nama, Alamat, JenisKelamin, Umur) VALUES (?, ?, ?, ?, ?, ?)");
+
+        if (!$stmt) {
+            return ['error' => 'Gagal mempersiapkan statement.'];
+        }
+
+        $stmt->bind_param("sssssi", $nik, $hashedPassword, $nama, $alamat, $jenisKelamin, $umur);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return ['error' => $stmt->error];
+    }
+
+    public function updateUser($nik, $password)
+    {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->db->prepare("UPDATE user SET Password = ? WHERE NIK = ?");
+
+        if (!$stmt) {
+            return false;
+        }
+
+        $stmt->bind_param("ss", $hashedPassword, $nik);
+        return $stmt->execute();
+    }
+
+    public function deleteUser($nik)
+    {
+        $stmt = $this->db->prepare("DELETE FROM user WHERE NIK = ?");
+        if (!$stmt) {
+            return false;
+        }
+
+        $stmt->bind_param("s", $nik);
+        return $stmt->execute();
+    }
+
+    public function verifyLogin($nik, $password)
+    {
+        $user = $this->getUserByNIK($nik);
+
+        if ($user && password_verify($password, $user['Password'])) {
+            return true;
+        }
+
+        return false;
+    }
 }

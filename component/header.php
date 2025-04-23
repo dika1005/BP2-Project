@@ -19,7 +19,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#blog">Artikel</a></li>
                 <li><a href="#">Contact</a></li>
-                <li><a target="_blank" href="/akow/auth/Login.php">Login</a></li>
+                <li><a target="_self" href="/akow/auth/Login.php">Login</a></li>
             </ul>
         </nav>
     </header>

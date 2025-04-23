@@ -1,4 +1,5 @@
 <?php
+
 class AdminModel
 {
     private $db;

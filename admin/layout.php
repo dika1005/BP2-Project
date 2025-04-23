@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../database.lib/Session.php';
-Session::checkAdminLogin();
+Session::checkAdminLogin(); // Pastikan method ini valid di file Session.php
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,7 @@ Session::checkAdminLogin();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Layout</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Pastikan file styles.css ada di folder yang sama dengan layout.php -->
 </head>
 
 <body>

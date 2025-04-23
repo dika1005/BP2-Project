@@ -14,7 +14,11 @@
         </div>
         <div class="login-container">
             <h2>Login</h2>
-            <?php $loginMessage = $loginMessage ?? ''; ?>
+            <?php
+            session_start();
+            $loginMessage = $_SESSION['error'] ?? '';
+            unset($_SESSION['error']);
+            ?>
             <?= $loginMessage ?>
             <form action="backLog/doLogin.php" method="POST">
                 <input type="text" name="username" placeholder="Username" autocomplete="username" required>
