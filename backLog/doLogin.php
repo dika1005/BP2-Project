@@ -6,7 +6,7 @@ require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../database.lib/Koneksi.php';
 require_once __DIR__ . '/../database.repo/AdminRepository.php';
 require_once __DIR__ . '/../database.repo/UserRepository.php';
-require_once __DIR__ . '/../public/root/index.php';
+require_once __DIR__ . '/../library/Route.php';
 
 // Cek kalau bukan POST, kembalikan ke login
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
